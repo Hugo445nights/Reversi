@@ -4,3 +4,27 @@ body {
     background: gray;
     background-size:cover;
 }
+
+#board {
+    width: 560px;
+    height: 560px;
+    background-color:lightgray;
+
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#board div {
+    /* board = 560*560 donc 70px par case */
+    width: 65px;
+    height: 65px;
+    background-color: whitesmoke;
+    border:3px solid black;
+    background-size:cover;
+}
+
+#board div img {
+    width:65px;
+    height:65px;
+}
