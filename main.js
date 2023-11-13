@@ -1,7 +1,14 @@
 let currentPawnTile;
-let score = 0;
+let scorePlayer1 = 0;
+let scorePlayer2 = 0;
+let score;
 let gameOver = false;
 let pawnTiles = [];
+let newPawn;
+let pawnColor;
+let pawnBorder;
+let pawnID;
+let playerPlaying = true; // true = joueur 1 et false = joueur 2
 
 window.onload = function () {
     setGame();
@@ -26,6 +33,10 @@ function getFourFirstTiles(tileNb) {
         case 3: return 35; break;
         case 4: return 36; break;
     }
+}
+
+function setRules() {
+
 }
 
 function setPawn() {
@@ -80,9 +91,52 @@ function selectTile() {
 
         }
     }
-    if (canPlace){
-        score++;
-        document.getElementById("score").innerText = score.toString();
+    if (canPlace) {
+        addPawn(this);
+        updateScore();
+        swapPlayers();
     }
-    
+
+}
+
+function updateScore() {
+    if (playerPlaying){
+        scorePlayer1++;
+    }
+    else {
+        scorePlayer2++;
+    }
+    score = scorePlayer1.toString() + " | " + scorePlayer2.toString();
+    document.getElementById("score").innerText = score;
+}
+
+function swapPlayers() {
+    if (playerPlaying) {
+        playerPlaying = false;
+    }
+    else {
+        playerPlaying = true;
+    }
+}
+
+function addPawn(clickedTile) {
+    for (let i = 0; i < pawnTiles.length; i++){
+        if (!playerPlaying){
+            pawnColor = "white";
+            pawnBorder = "1px solid black";
+            pawnID = i;
+        }
+        else {
+            pawnColor = "black";
+            pawnBorder = "1px solid white";
+            pawnID = i;
+        }
+    }
+    newPawn = document.createElement("img");
+    newPawn.style.backgroundColor = pawnColor;
+    newPawn.style.border = pawnBorder;
+    newPawn.style.borderRadius = "50%";
+
+    clickedTile.appendChild(newPawn);
+    pawnTiles.push(clickedTile);
 }
