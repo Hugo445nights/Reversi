@@ -1,14 +1,17 @@
-let currentPawnTile;
-let scorePlayer1 = 0;
-let scorePlayer2 = 0;
 let score;
 let gameOver = false;
+
+let currentPawnTile;
 let pawnTiles = [];
+let placeablePawnTiles = [];
 let newPawn;
 let pawnColor;
 let pawnBorder;
 let pawnID;
+
 let playerPlaying = true; // true = joueur 1 et false = joueur 2
+let scorePlayer1 = 0;
+let scorePlayer2 = 0;
 
 window.onload = function () {
     setGame();
@@ -82,16 +85,12 @@ function setPawn() {
 }
 
 function selectTile() {
-    let canPlace = true;
-    for (let i = 0; i < pawnTiles.length; i++) {
-        if (this == pawnTiles[i]) {
-            canPlace = false;
-        }
-        else {
 
-        }
-    }
-    if (canPlace) {
+    placeableTiles();
+
+    let isOccup = isOccupied(this);
+
+    if (!isOccup) {
         addPawn(this);
         updateScore();
         swapPlayers();
@@ -99,8 +98,40 @@ function selectTile() {
 
 }
 
+function placeableTiles() {
+    for (let i = 0; i < pawnTiles.length; i++){
+        // est occupée
+        let a = isOccupied(pawnTiles[i]);
+        // respecte les règles (pas encore codé)
+        let rulesAreRespected = true;
+        // affiche ou non
+        if (!isOccupied && rulesAreRespected){
+            displayPlaceableTile(pawnTiles[i]);
+        }
+    }
+}
+
+function displayPlaceableTile(tile){
+    newGhostPawn = document.createElement("img");
+    newGhostPawn.style.backgroundColor = "pink";
+    newGhostPawn.style.border = "1px solid white";
+    newGhostPawn.style.borderRadius = "50%";
+
+    placeablePawnTiles.push(tile);
+}
+
+function isOccupied(clickedTile) {
+    let occupied = false;
+    for (let i = 0; i < pawnTiles.length; i++) {
+        if (clickedTile == pawnTiles[i]) {
+            occupied = true;
+        }
+    }
+    return occupied;
+}
+
 function updateScore() {
-    if (playerPlaying){
+    if (playerPlaying) {
         scorePlayer1++;
     }
     else {
@@ -120,8 +151,8 @@ function swapPlayers() {
 }
 
 function addPawn(clickedTile) {
-    for (let i = 0; i < pawnTiles.length; i++){
-        if (!playerPlaying){
+    for (let i = 0; i < pawnTiles.length; i++) {
+        if (!playerPlaying) {
             pawnColor = "white";
             pawnBorder = "1px solid black";
             pawnID = i;
