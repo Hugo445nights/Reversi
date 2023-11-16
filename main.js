@@ -3,7 +3,6 @@ let gameOver = false;
 
 let currentPawnTile;
 let pawnTiles = [];
-let placeablePawnTiles = [];
 let newPawn;
 let pawnColor;
 let pawnBorder;
@@ -106,18 +105,9 @@ function placeableTiles() {
         let rulesAreRespected = true;
         // affiche ou non
         if (!isOccupied && rulesAreRespected){
-            displayPlaceableTile(pawnTiles[i]);
+            print("lol");
         }
     }
-}
-
-function displayPlaceableTile(tile){
-    newGhostPawn = document.createElement("img");
-    newGhostPawn.style.backgroundColor = "pink";
-    newGhostPawn.style.border = "1px solid white";
-    newGhostPawn.style.borderRadius = "50%";
-
-    placeablePawnTiles.push(tile);
 }
 
 function isOccupied(clickedTile) {
